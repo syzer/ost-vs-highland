@@ -1,0 +1,25 @@
+{
+  "name": "ost-vs-highland",
+  "version": "1.0.0",
+  "description": "Let's see who is faster",
+  "main": "index.js",
+  "scripts": {
+    "test": "matcha highland.js ost.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kichooo/ost-vs-highland.git"
+  },
+  "author": "Krzysztof Burlinski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kichooo/ost-vs-highland/issues"
+  },
+  "homepage": "https://github.com/kichooo/ost-vs-highland#readme",
+  "dependencies": {
+    "highland": "^2.8.1",
+    "jsonstream": "^1.0.3",
+    "matcha": "^0.7.0",
+    "object-stream-tools": "^2.3.0"
+  }
+}
