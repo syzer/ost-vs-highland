@@ -24,7 +24,7 @@
     "highland": "^2.8.1",
     "jsonstream": "^1.0.3",
     "lodash": "^4.13.1",
-    "matcha": "^0.7.0",
+    "node": "^0.7.0",
     "object-stream-tools": "^2.3.0"
   }
 }

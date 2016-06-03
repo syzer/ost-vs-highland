@@ -2,13 +2,11 @@ const jsonStream = require('JSONStream')
 const highland = require('highland')
 const fs = require('fs')
 
-function dataStream() {
-    return fs.createReadStream('./data1gb.json')
-        .pipe(jsonStream.parse('*'))
-}
+const dataStream = () => fs.createReadStream('./data1gb.json', {encoding: 'utf8'})
+    .pipe(jsonStream.parse(false))
 
 set('iterations', 1)
-set('concurrency', 2)
+set('concurrency', 1)
 
 suite('Test highland.js', () => {
     bench('Test map', next =>
@@ -37,18 +35,18 @@ suite('Test highland.js', () => {
             .on('end', next)
     )
 
-    // bench('Test something more', next =>
-    //     highland(dataStream())
-    //         .map(data => ({
-    //             friends: data.friends,
-    //             tags: data.tags
-    //         }))
-    //         .filter(data => data.tags.length > 1)
-    //         .map(data => data.tags.concat(data.friends))
-    //         .map(data => data.length)
-    //         .reduce(0, (acc, curr) => acc + curr)
-    //         .on('data', () => {
-    //         })
-    //         .on('end', next)
-    // )
+    bench('Test something more', next =>
+        highland(dataStream())
+            .map(e => ({
+                posts: e.posts,
+                accountHistory: e.accountHistory
+            }))
+            .filter(e => e.accountHistory[0].amount > 100)
+            .map(e => e.accountHistory.concat(e.posts))
+            .map(e => e.length)
+            .reduce(0, (acc, curr) => acc + curr)
+            .on('data', () => {
+            })
+            .on('end', next)
+    )
 })

@@ -2,13 +2,11 @@ const jsonStream = require('JSONStream')
 const ost = require('object-stream-tools')
 const fs = require('fs')
 
-function dataStream() {
-    return fs.createReadStream('./data1gb.json')
-        .pipe(jsonStream.parse('*'))
-}
+const dataStream = () => fs.createReadStream('./data1gb.json', {encoding: 'utf8'})
+    .pipe(jsonStream.parse(false))
 
 set('iterations', 1)
-set('concurrency', 2)
+set('concurrency', 1)
 
 suite('Test ost.js', () => {
     bench('Test map', next => {
@@ -37,18 +35,18 @@ suite('Test ost.js', () => {
             .on('end', next)
     )
 
-    // bench('Test something more', next =>
-    //     dataStream()
-    //         .pipe(ost.map(data => ({
-    //             friends: data.friends,
-    //             tags: data.tags
-    //         })))
-    //         .pipe(ost.filter(data => data.tags.length > 1))
-    //         .pipe(ost.map(data => data.tags.concat(data.friends)))
-    //         .pipe(ost.map(data => data.length))
-    //         .pipe(ost.reduce((acc, curr) => acc + curr, 0))
-    //         .on('data', () => {
-    //         })
-    //         .on('end', next)
-    // )
+    bench('Test something more', next =>
+        dataStream()
+            .pipe(ost.map(e => ({
+                posts: e.posts,
+                accountHistory: e.accountHistory
+            })))
+            .pipe(ost.filter(e => e.accountHistory[0].amount > 100))
+            .pipe(ost.map(e => e.accountHistory.concat(e.posts)))
+            .pipe(ost.map(e => e.length))
+            .pipe(ost.reduce((acc, curr) => acc + curr, 0))
+            .on('data', () => {
+            })
+            .on('end', next)
+    )
 })
