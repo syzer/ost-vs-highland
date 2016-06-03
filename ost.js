@@ -10,26 +10,28 @@ function dataStream() {
 set('iterations', 10)
 set('concurrency', 2)
 
-suite('Test ost.js', function() {
+suite('Test ost.js', () => {
     bench('Test map', next => {
         dataStream()
             .pipe(ost.map(data => data.friends))
             .on('data', () => {})
-            .on('end', () => next());
+            .on('end', next);
     })
 
     bench('Test reduce', next =>
         dataStream()
         .pipe(ost.reduce((acc, curr) => acc + curr, 0))
         .on('data', () => {})
-        .on('end', () => next()))
+        .on('end', next)
+    )
 
     bench('Test some', next =>
         dataStream()
         .pipe(ost.map(data => data.age))
         .pipe(ost.some(age => age === 45))
         .on('data', () => {})
-        .on('end', () => next()))
+        .on('end', next)
+    )
 
     bench('Test something more', next =>
         dataStream()
@@ -42,6 +44,6 @@ suite('Test ost.js', function() {
         .pipe(ost.map(data => data.length))
         .pipe(ost.reduce((acc, curr) => acc + curr, 0))
         .on('data', () => {})
-        .on('end', () => next()))
-
+        .on('end', next)
+    )
 })

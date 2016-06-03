@@ -4,7 +4,8 @@
   "description": "Let's see who is faster",
   "main": "index.js",
   "scripts": {
-    "test": "matcha highland.js ost.js"
+    "ost": "matcha ost.js",
+    "highland": "matcha highland.js"
   },
   "repository": {
     "type": "git",

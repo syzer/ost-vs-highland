@@ -10,19 +10,19 @@ function dataStream() {
 set('iterations', 10)
 set('concurrency', 2)
 
-suite('Test ost.js', function() {
+suite('Test ost.js', () => {
     bench('Test map', next =>
         highland(dataStream())
         .map(data => data.friends)
         .on('data', () => {})
-        .on('end', () => next())
+        .on('end', next)
     )
 
     bench('Test reduce', next =>
         highland(dataStream())
         .reduce(0, (acc, curr) => acc + curr)
         .on('data', () => {})
-        .on('end', () => next())
+        .on('end', next)
     )
 
     bench('Test some', next =>
@@ -30,7 +30,7 @@ suite('Test ost.js', function() {
         .map(data => data.age)
         .find(age => age === 45)
         .on('data', () => {})
-        .on('end', () => next())
+        .on('end', next)
     )
 
     bench('Test something more', next =>
@@ -44,6 +44,6 @@ suite('Test ost.js', function() {
         .map(data => data.length)
         .reduce(0, (acc, curr) => acc + curr)
         .on('data', () => {})
-        .on('end', () => next())
+        .on('end', next)
     )
 })
