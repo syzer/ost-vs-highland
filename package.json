@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/kichooo/ost-vs-highland#readme",
   "dependencies": {
+    "JSONStream": "^1.1.1",
+    "faker": "^3.1.0",
     "highland": "^2.8.1",
     "jsonstream": "^1.0.3",
+    "lodash": "^4.13.1",
     "matcha": "^0.7.0",
     "object-stream-tools": "^2.3.0"
   }
