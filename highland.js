@@ -10,7 +10,7 @@ function dataStream() {
 set('iterations', 10)
 set('concurrency', 2)
 
-suite('Test ost.js', () => {
+suite('Test highland.js', () => {
     bench('Test map', next =>
         highland(dataStream())
         .map(data => data.friends)
