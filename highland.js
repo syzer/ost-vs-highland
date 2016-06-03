@@ -5,8 +5,8 @@ const fs = require('fs')
 const dataStream = () => fs.createReadStream('./data1gb.json', {encoding: 'utf8'})
     .pipe(jsonStream.parse(false))
 
-set('iterations', 1)
-set('concurrency', 1)
+set('iterations', 2)
+set('concurrency', 2)
 
 suite('Test highland.js', () => {
     bench('Test map', next =>
