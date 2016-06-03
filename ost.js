@@ -20,7 +20,7 @@ suite('Test ost.js', function() {
 
     bench('Test reduce', next =>
         dataStream()
-        .pipe(ost.reduce((acc, curr) => acc + curr), 0)
+        .pipe(ost.reduce((acc, curr) => acc + curr, 0))
         .on('data', () => {})
         .on('end', () => next()))
 
@@ -39,8 +39,8 @@ suite('Test ost.js', function() {
         })))
         .pipe(ost.filter(data => data.tags.length > 1))
         .pipe(ost.map(data => data.tags.concat(data.friends)))
-        .pipe(ost.map(data => data.tags.length))
-        .pipe(ost.reduce((acc, curr) => acc + curr), 0)
+        .pipe(ost.map(data => data.length))
+        .pipe(ost.reduce((acc, curr) => acc + curr, 0))
         .on('data', () => {})
         .on('end', () => next()))
 
